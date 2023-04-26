@@ -1,0 +1,23 @@
+[
+    {
+        "id": "1e31218a-e44e-4285-820c-8282ee222035",
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "porcent": 0.05,
+        "logo": "https://asset-images.messari.io/images/1e31218a-e44e-4285-820c-8282ee222035/32.png?v=2"
+    },
+     {
+        "id": "",
+        "symbol": "",
+        "name": "",
+        "porcent": "",
+        "logo": ""
+    },
+     {
+        "id": "",
+        "symbol": "",
+        "name": "",
+        "porcent": "",
+        "logo": ""
+    }
+]

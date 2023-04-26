@@ -3,18 +3,21 @@ import cryptoRequests from "../../infrastructure/api/crypto/crypto.requests";
 import { AssetsTableData, DataAsset } from "../dto";
 
 export const useGetAssests = () => {
-  const [cryptoData, setCryptoData] = useState<AssetsTableData[]>([]);
+  const [cryptoData, setCryptoData] = useState<AssetsTableData[]>([]);   
+  const [flag, setFlag] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
-      const {data} = await cryptoRequests.getAllAssets(10);
+      const {data} = await cryptoRequests.getAllAssets();
       const resp = getAssetsByInterview(data);
       const respFormat = formatAssets(resp);
       setCryptoData(respFormat);
     })();
-  }, []);
+  }, [flag]);
 
-
+  setTimeout(() => {
+    setFlag(!flag);
+  }, 10000);
 
   return [cryptoData];
 };
