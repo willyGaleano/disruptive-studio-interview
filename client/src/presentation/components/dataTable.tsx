@@ -79,8 +79,7 @@ export const DataTable: React.FC<Props> = ({ cryptoData }) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 text-center">
-                {cryptoData &&
-                  cryptoData.map((crypto) => (
+                {cryptoData?.length > 0 ? (cryptoData.map((crypto) => (
                     <tr key={crypto.id}>
                       <td className="flex flex-row gap-2 items-center px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                         <img src={crypto.logo} alt={crypto.name} />
@@ -153,7 +152,7 @@ export const DataTable: React.FC<Props> = ({ cryptoData }) => {
                         {formatNumber(crypto.percent_change_year_to_date)}
                       </td>
                     </tr>
-                  ))}
+                  ))) : null }
               </tbody>
             </table>
           </div>

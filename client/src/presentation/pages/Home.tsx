@@ -8,7 +8,7 @@ export const Home = () => {
   return (
     <div className="container flex flex-col gap-10 mt-20">
 
-      <Calculator/>
+      <Calculator cryptoData={cryptoData}/>
       <DataTable cryptoData={cryptoData}/>
        
     </div>

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import cryptoRequests from "../../infrastructure/api/crypto/crypto.requests";
+import cryptoRequests from "../../infrastructure/api/crypto.requests";
 import { AssetsTableData, DataAsset } from "../dto";
 
 export const useGetAssests = () => {
   const [cryptoData, setCryptoData] = useState<AssetsTableData[]>([]);   
-  const [flag, setFlag] = useState<boolean>(false);
+  /* const [flag, setFlag] = useState<boolean>(false); */
 
   useEffect(() => {
     (async () => {
@@ -13,11 +13,11 @@ export const useGetAssests = () => {
       const respFormat = formatAssets(resp);
       setCryptoData(respFormat);
     })();
-  }, [flag]);
+  }, []);
 
-  setTimeout(() => {
+  /* setTimeout(() => {
     setFlag(!flag);
-  }, 10000);
+  }, 10000); */
 
   return [cryptoData];
 };

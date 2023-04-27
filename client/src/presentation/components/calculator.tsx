@@ -1,8 +1,37 @@
-//rafc
-
 import { Button, Label, Select, TextInput } from "flowbite-react";
+import { useGetAssestsCalculator } from "../../application/hooks/useGetAssetsCalculator";
+import { useState } from "react";
+import { AssetsList, AssetsTableData } from "../../application/dto";
 
-export const Calculator = () => {
+interface Props {
+  cryptoData: AssetsTableData[];
+}
+
+export const Calculator: React.FC<Props> = ({ cryptoData })=> {
+
+  const [cryptoList] = useGetAssestsCalculator();
+  const [amount, setAmount] = useState<number>(0);
+  const [selectedCrypto, setSelectedCrypto] = useState<AssetsList>({} as AssetsList);
+  const [result, setResult] = useState<number>(0);
+
+  const handleChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(Number(e.target.value));    
+  };
+
+  const submitCalculate = () => {
+    const price_usd = cryptoData.find(crypto => crypto.id === selectedCrypto.id)?.price_usd as number;
+    setResult((amount * price_usd) * selectedCrypto.percentage * 12);
+  };
+
+  const handleSelectOptions = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value === "") {
+      return;
+    }
+    setAmount(0);
+    setResult(0);
+    setSelectedCrypto(cryptoList.find(crypto => crypto.id === e.target.value) as AssetsList);
+  };
+
   return (
     <div className="flex flex-row gap-4">
       <div className="basis-4/12">
@@ -12,37 +41,40 @@ export const Calculator = () => {
               <div className="mb-2 block">
                 <Label htmlFor="countries" value="Select your currency" />
               </div>
-              <Select id="countries" required={true}>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
+              <Select onChange={handleSelectOptions} id="countries" required={true}>
+                <option value="">Select a crypto</option>
+                {cryptoList.map((crypto) => (
+                  <option key={crypto.id} value={crypto.id}>{crypto.name} ({crypto.symbol})</option>
+                ))}                
               </Select>
             </div>
           </div>
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="password1" value="Amount" />
+              <Label htmlFor="amount" value="Amount" />
             </div>
-            <TextInput id="password1" type="number" required={true} />
+            <TextInput onChange={handleChangeAmount} id="amount" value={amount} type="number" required={true} />
+
           </div>
-          <Button type="submit">Calcular</Button>
+          <Button type="button" onClick={submitCalculate}>Calculate</Button>
         </form>
       </div>
       <div className="basis-4/12">
         <div className="flex flex-col items-center pb-10">
           <img
             className="mb-3 h-24 w-24 rounded-full shadow-lg"
-            src="https://cdn.pixabay.com/photo/2021/04/30/16/47/btc-logo-6219386_1280.png"
+            src={selectedCrypto.logo || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"}
             alt="Bonnie image"
           />
           <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-            Bitcoin
+            {selectedCrypto.name || "Select a crypto"}
           </h5>
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            Annual profit for a monthly return of 5%
+            Annual profit for a monthly return of {selectedCrypto.percentage *100 || 0 }%
+            
           </span>
           <div className="mt-4 flex border rounded-md px-4 py-3">
-           458964559595959
+           ${result.toFixed(2)}
           </div>
         </div>
       </div>

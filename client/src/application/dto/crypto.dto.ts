@@ -57,3 +57,14 @@ export interface RoiData {
   percent_change_last_1_year: number;
   percent_change_year_to_date: number;
 }
+
+export interface AssetsList {
+  id: string;
+  symbol: string;
+  name: string;
+  percentage: number;
+  logo: string;
+}
+export interface AssetsListResponse {
+  data: AssetsList[];
+}
