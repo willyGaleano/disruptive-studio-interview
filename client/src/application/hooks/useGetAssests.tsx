@@ -4,8 +4,7 @@ import { AssetsTableData, DataAsset } from "../dto";
 
 export const useGetAssests = () => {
   const [cryptoData, setCryptoData] = useState<AssetsTableData[]>([]);   
-  /* const [flag, setFlag] = useState<boolean>(false); */
-
+  
   useEffect(() => {
     (async () => {
       const {data} = await cryptoRequests.getAllAssets();
@@ -14,10 +13,7 @@ export const useGetAssests = () => {
       setCryptoData(respFormat);
     })();
   }, []);
-
-  /* setTimeout(() => {
-    setFlag(!flag);
-  }, 10000); */
+  
 
   return [cryptoData];
 };

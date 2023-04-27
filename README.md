@@ -15,7 +15,10 @@ Tecnologías utilizadas:
 
 ## Home
 
-El home muestra el formulario para calcular la ganancia anula y una tabla con datos
+![home](/images/home.PNG)
+
+
+El home muestra el formulario para calcular la ganancia anual y una tabla con datos
 obtenidos de la api `https://data.messari.io/api`
 
 La consulta solo con campos necesarios se vería así:
@@ -39,7 +42,7 @@ https://data.messari.io/api/v1/assets/1e31218a-e44e-4285-820c-8282ee222035/metri
 
 ```
 
-![home](/images/home.PNG)
+
 
 
 
@@ -99,7 +102,7 @@ yarn start:dev
 4. Ejecutar pruebas unitarias
 
 ```bash
-yarn start:dev
+yarn test
 ```
 
 ## Client
